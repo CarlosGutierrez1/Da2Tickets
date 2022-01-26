@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitud de soporte</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <link th:href="@{/css/pedirsoporte.css}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav th:replace="layout/_navbar :: navbar"></nav>
+<section class="main-section">
+    <div class="decoration-circle"></div>
+    <div class="main-center-wrapper">
+
+        <div class="input-wrapper">
+            <h2>Solicitud de soporte</h2>
+            <h4>Ingrese los datos solicitados</h4>
+            <label for="marca">Ingrese la marca del equipo:</label>
+            <input type="text" class="inputmain" name="marca" id="marca" placeholder="Hp Pavilion"/>
+            <label for="codigo">Ingese el codigo del equipo:</label>
+            <input type="text" class="inputmain" name="codigo" id="codigo" placeholder="A5424642S"/>
+            <label for="problema">Ingrese el problema tecnico:</label>
+            <textarea name="problema" id="problema" placeholder="No conecta a wifi"></textarea>
+            <input type="hidden" th:value="${param.q}" name="idUsuario" id="idUsuario"/>
+            <button class="button" onclick="fetchSolicitarSoporte()">Solicitar servicio</button>
+        </div>
+    </div>
+
+</section>
+<script type="text/javascript" th:src="@{/js/fetch/solicitudSoporteFetch.js}"></script>
+<script type="text/javascript" th:src="@{/js/swal.js}"></script>
+</body>
+</html>

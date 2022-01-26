@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio de sesion</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<nav th:replace="layout/_navbar :: navbar"></nav>
+<section class="main-section-login">
+    <div class="center-wrapper">
+        <div class="input-wrapper">
+            <h1> Inicio de sesion</h1>
+            <h4>Ingrese sus credenciales</h4>
+            <label for="user">Usuario:</label>
+            <input type="text"  name="user" id="user" class="inputmain" placeholder="juan123"/>
+            <label for="pass">Contraseña</label>
+            <input type="password" name="pass" id="pass" class="inputmain" placeholder="password"/>
+            <button class="button" onclick="fetchBuscarPaciente()">Iniciar sesion</button>
+
+        </div>
+    </div>
+</section>
+<script type="text/javascript" th:src="@{/js/fetch/clientes/loginFetch.js}"></script>
+<script type="text/javascript" th:src="@{/js/swal.js}"></script>
+</body>
+</html>
