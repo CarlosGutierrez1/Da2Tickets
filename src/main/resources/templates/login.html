@@ -17,18 +17,21 @@
         <div class="input-wrapper">
             <h1> Inicio de sesion</h1>
             <h4>Ingrese sus credenciales</h4>
-            <form method="post" th:action="@{/login}">
+            <form method="post" th:action="@{/auth/login}">
             <label for="username">Usuario:</label>
             <input type="text"  name="username" id="username" class="inputmain" placeholder="juan123"/>
             <label for="password">Contraseña</label>
             <input type="password" name="password" id="password" class="inputmain" placeholder="password"/>
             <input type="submit" class="button" value="Iniciar sesion"/>
-<!--            <button class="button" onclick="fetchBuscarPaciente()">Iniciar sesion</button>-->
             </form>
         </div>
     </div>
 </section>
-<script type="text/javascript" th:src="@{/js/fetch/clientes/loginFetch.js}"></script>
-<script type="text/javascript" th:src="@{/js/swal.js}"></script>
+<div th:if="${param.error}"  class="param-error">
+    <p>No se ha podido iniciar sesion. Intente de nuevo mas tarde.</p>
+</div>
+<div th:if="${param.success}"  class="param-success">
+    <p>Se ha registrado exitosamente. Para continuar inicie sesion.</p>
+</div>
 </body>
 </html>

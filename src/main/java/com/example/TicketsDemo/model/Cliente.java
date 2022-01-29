@@ -11,16 +11,36 @@ public class Cliente extends Usuario{
     public Cliente() {
     }
 
-    public Cliente(Long idUsuario, String usuario, String contrasena, String rol,
+    public Cliente(String contrasena,
+                   String correo, String nombre,
+                   int numDoc, String tipoDoc, String empresa, String cargo) {
+        super(contrasena, correo, nombre);
+        this.numDoc = numDoc;
+        this.tipoDoc = tipoDoc;
+        this.empresa = empresa;
+        this.cargo = cargo;
+    }
+
+    public Cliente(String contrasena, String rol,
+                   String correo, String nombre, int disponible,
+                   int numDoc, String tipoDoc, String empresa, String cargo) {
+        super( contrasena, rol, correo, nombre, disponible);
+        this.numDoc = numDoc;
+        this.tipoDoc = tipoDoc;
+        this.empresa = empresa;
+        this.cargo = cargo;
+    }
+
+    public Cliente(Long idUsuario, String contrasena, String rol,
                    String correo, String nombre, int disponible) {
-        super(idUsuario, usuario, contrasena, rol, correo, nombre, disponible);
+        super(idUsuario,  contrasena, rol, correo, nombre, disponible);
         this.idUsuario = idUsuario;
     }
 
-    public Cliente(Long idUsuario, String usuario, String contrasena, String rol,
+    public Cliente(Long idUsuario, String contrasena, String rol,
                    String correo, String nombre, int disponible, Long idCliente,
                    int numDoc, String tipoDoc, String empresa, String cargo) {
-        super(idUsuario, usuario, contrasena, rol, correo, nombre, disponible);
+        super(idUsuario,  contrasena, rol, correo, nombre, disponible);
         this.idCliente = idCliente;
         this.idUsuario = idUsuario;
         this.numDoc = numDoc;
@@ -77,5 +97,19 @@ public class Cliente extends Usuario{
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                ", numDoc=" + numDoc +
+                ", tipoDoc='" + tipoDoc + '\'' +
+                ", empresa='" + empresa + '\'' +
+                ", cargo='" + cargo + '\'' +
+                ", contrasena='" + getContrasena() + '\'' +
+                ", correo='" + getCorreo() + '\'' +
+                ", rol='" + getRol() + '\'' +
+                ", nombre='" + getNombre() + '\'' +
+                '}';
     }
 }

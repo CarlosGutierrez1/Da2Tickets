@@ -12,6 +12,12 @@ public class Ticket {
 
     public Ticket() {
     }
+    public Ticket(String tipoSoporte, String prioridad, String descripcion) {
+        this.tipoSoporte = tipoSoporte;
+        this.prioridad = prioridad;
+        this.descripcion = descripcion;
+    }
+
 
     public Ticket(Long idTicket, Long idCliente, Long idEncargado, String tipoSoporte, String prioridad, String numTicket, String descripcion, int estado) {
         this.idTicket = idTicket;

@@ -1,22 +1,39 @@
 package com.example.TicketsDemo.controller;
 
+import com.example.TicketsDemo.model.Cliente;
+import com.example.TicketsDemo.model.Usuario;
+import com.example.TicketsDemo.service.UtilService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @Controller
+@RequestMapping("/auth")
 public class AutenticacionController {
+    @Autowired
+    UtilService utilService;
+
     @GetMapping("/login")
     public String loginTemplate(){return "login";}
     @GetMapping("/registro")
-    public String registrarTemplate(){return  "registro";}
-    @PostMapping("")
-    public String registrarUsuario(@RequestParam("user")String usuario, @RequestParam("pass")String contrasena,
-                                   @RequestParam("nombre")String nombre, @RequestParam("tipoDoc")String tipoDoc,
-                                   @RequestParam("numDoc")int numDoc, @RequestParam("empresa")String empresa,
-                                   @RequestParam("cargo")String cargo, @RequestParam("email")String correo){
+    public String registrarTemplate(Model model){
+        Cliente cliente = new Cliente();
+        model.addAttribute("Cliente",cliente);
+        return  "registro";
+    }
 
-        return "";
+    @PostMapping("/registrausuario")
+    public String registrarUsuario(@ModelAttribute("Cliente")Cliente cliente){
+        if(utilService.registrarCliente(cliente)){
+            return "redirect:/auth/login?success";
+        }else{
+            return "redirect:/auth/registro?error";
+        }
+
+
     }
 }

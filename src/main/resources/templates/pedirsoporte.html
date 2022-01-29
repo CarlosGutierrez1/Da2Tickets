@@ -13,19 +13,30 @@
         <div class="input-wrapper">
             <h2>Solicitud de soporte</h2>
             <h4>Ingrese los datos solicitados</h4>
-            <label for="marca">Ingrese la marca del equipo:</label>
-            <input type="text" class="inputmain" name="marca" id="marca" placeholder="Hp Pavilion"/>
-            <label for="codigo">Ingese el codigo del equipo:</label>
-            <input type="text" class="inputmain" name="codigo" id="codigo" placeholder="A5424642S"/>
-            <label for="problema">Ingrese el problema tecnico:</label>
-            <textarea name="problema" id="problema" placeholder="No conecta a wifi"></textarea>
-            <input type="hidden" th:value="${param.q}" name="idUsuario" id="idUsuario"/>
-            <button class="button" onclick="fetchSolicitarSoporte()">Solicitar servicio</button>
+            <form method="post" th:action="@{/index/registrarsoporte}" th:object="${Ticket}">
+            <label for="tipoSoporte">Seleccione el tipo de soporte:</label>
+            <select class="" name="tipoSoporte"
+                    id="tipoSoporte" th:required="required" required autofocus="autofocus"  th:field="*{tipoSoporte}">
+                <option value="Equipo">Equipo</option>
+                <option value="Software">Software</option>
+            </select>
+            <label for="prioridad">Ingese el codigo del equipo:</label>
+            <select class="" name="prioridad"
+                    id="prioridad" th:required="required" required autofocus="autofocus" th:field="*{prioridad}">
+                <option value="Alta">Alta</option>
+                <option value="Media">Media</option>
+                <option value="Baja">Baja</option>
+            </select>
+            <label for="problema">Ingrese una descripcion del problema:</label>
+            <textarea name="problema" id="problema" placeholder="La aplicacion de telefono no registra usuarios nuevos" th:field="*{descripcion}"></textarea>
+            <input type="submit" class="button" value="Solicitar servicio"/>
+            </form>
         </div>
     </div>
 
 </section>
-<script type="text/javascript" th:src="@{/js/fetch/solicitudSoporteFetch.js}"></script>
-<script type="text/javascript" th:src="@{/js/swal.js}"></script>
+<div th:if="${param.error}"  class="param-error">
+    <p>No se pudo registrar la solicitud de soporte. Intente de nuevo mas tarde.</p>
+</div>
 </body>
 </html>

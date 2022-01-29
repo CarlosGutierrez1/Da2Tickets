@@ -2,7 +2,6 @@ package com.example.TicketsDemo.model;
 
 public class Usuario {
    private Long idUsuario;
-   private String usuario;
    private String contrasena;
    private String rol;
    private String correo;
@@ -12,9 +11,24 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Long idUsuario, String usuario, String contrasena, String rol, String correo, String nombre, int disponible) {
+    public Usuario(String contrasena,  String correo, String nombre) {
+        this.contrasena = contrasena;
+        this.rol = "ROL_C";
+        this.correo = correo;
+        this.nombre = nombre;
+        this.disponible = 1;
+    }
+
+    public Usuario(String contrasena, String rol, String correo, String nombre, int disponible) {
+        this.contrasena = contrasena;
+        this.rol = rol;
+        this.correo = correo;
+        this.nombre = nombre;
+        this.disponible = disponible;
+    }
+
+    public Usuario(Long idUsuario, String contrasena, String rol, String correo, String nombre, int disponible) {
         this.idUsuario = idUsuario;
-        this.usuario = usuario;
         this.contrasena = contrasena;
         this.rol = rol;
         this.correo = correo;
@@ -30,13 +44,7 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
 
     public String getContrasena() {
         return contrasena;

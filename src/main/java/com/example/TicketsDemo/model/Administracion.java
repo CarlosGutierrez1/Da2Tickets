@@ -7,12 +7,12 @@ public class Administracion extends Usuario{
     public Administracion() {
     }
 
-    public Administracion(Long idUsuario, String usuario, String contrasena, String rol, String correo, String nombre, int disponible) {
-        super(idUsuario, usuario, contrasena, rol, correo, nombre, disponible);
+    public Administracion(Long idUsuario, String contrasena, String rol, String correo, String nombre, int disponible) {
+        super(idUsuario, contrasena, rol, correo, nombre, disponible);
     }
 
-    public Administracion(Long idUsuario, String usuario, String contrasena, String rol, String correo, String nombre, int disponible, Long idAdministracion) {
-        super(idUsuario, usuario, contrasena, rol, correo, nombre, disponible);
+    public Administracion(Long idUsuario,  String contrasena, String rol, String correo, String nombre, int disponible, Long idAdministracion) {
+        super(idUsuario,  contrasena, rol, correo, nombre, disponible);
         this.idAdministracion = idAdministracion;
         this.idUsuario = idUsuario;
     }

@@ -9,48 +9,48 @@
 <section class="main-section-login">
     <div class="center-wrapper">
         <div class="input-wrapper fixed">
-            <form method="post" th:action="@{/registrausuario}">
+            <form method="post" th:action="@{/auth/registrausuario}" th:object="${Cliente}">
             <div class="top-wrapper">
             <h1>Registro de usuarios</h1>
             <h4>Ingrese los datos solicitados:</h4>
             </div>
             <div class="center-wrapper2">
             <div class="inside-left-wrapper">
-            <label for="user">Usuario:</label>
-            <input type="text"  name="user" id="user" class="inputmain" placeholder="juan123" th:required/>
             <label for="pass">Contraseña</label>
-            <input type="password" name="pass" id="pass" class="inputmain" placeholder="password" th:required/>
+            <input type="password" name="pass" id="pass" class="inputmain" placeholder="password" required autofocus="autofocus" th:required="required" th:field="*{contrasena}"/>
+                <label for="correo">Correo:</label>
+                <input type="email" name="correo" id="correo" class="inputmain" placeholder="juan@gmail.com" required autofocus="autofocus" th:required="required" th:field="*{correo}"/>
             <label for="nombre">Nombre: </label>
-            <input type="text" name="nombre" id="nombre" class="inputmain" placeholder="Juan Torres" th:required/>
-            <div class="wrapper-document-register">
-                <div><p>Documento de identidad:</p></div>
-                <div>
-                    <select class="" name="tipoDoc"
-                             id="tipoDoc" th:required>
-                    <option value="C.C">C.C</option>
-                    <option value="T.I">T.I</option>
-                    <option value="P.E">P.E</option>
-                </select>
-                    <input type="number" name="numDoc" id="numDoc" class="inputmain" placeholder="1123345555" th:required/>
-                </div>
-
-            </div>
-            </div>
+            <input type="text" name="nombre" id="nombre" class="inputmain" placeholder="Juan Torres" required autofocus="autofocus" th:required="required" th:field="*{nombre}"/>
+           </div>
             <div class="inside-right-wrapper">
+                <div class="wrapper-document-register">
+                    <div><p>Documento de identidad:</p></div>
+                    <div>
+                        <select class="" name="tipoDoc"
+                                id="tipoDoc" th:required="required" required autofocus="autofocus" th:field="*{tipoDoc}">
+                            <option value="C.C">C.C</option>
+                            <option value="T.I">T.I</option>
+                            <option value="P.E">P.E</option>
+                        </select>
+                        <input type="number" name="numDoc" id="numDoc" class="inputmain" placeholder="1123345555" required autofocus="autofocus" th:required="required" th:field="*{numDoc}"/>
+                    </div>
+                </div>
             <label for="empresa">Nombre de la empresa</label>
-            <input type="text" name="empresa" id="empresa" class="inputmain" placeholder="Pulpos Online SAS" th:required/>
+            <input type="text" name="empresa" id="empresa" class="inputmain" placeholder="Pulpos Online SAS" required autofocus="autofocus" th:required="required" th:field="*{empresa}"/>
             <label for="cargo">Cargo:</label>
-            <input type="text" name="cargo" id="cargo" class="inputmain" placeholder="Auxiliar de servicios" th:required/>
-            <label for="correo">Correo:</label>
-            <input type="email" name="correo" id="correo" class="inputmain" placeholder="juan@gmail.com" th:required/>
+            <input type="text" name="cargo" id="cargo" class="inputmain" placeholder="Auxiliar de servicios" required autofocus="autofocus" th:required="required" th:field="*{cargo}"/>
+
 
             </div>
-<!--            <button class="button" onclick="fetchBuscarPaciente()">Iniciar sesion</button>-->
             </div>
             <div class="bottom-wrapper"><input type="submit" class="button button-register-fixed" value="Registrarse"/></div>
             </form>
         </div>
     </div>
 </section>
+<div th:if="${param.error}"  class="param-error">
+    <p>No se pudo registrar el usuario. Intente de nuevo mas tarde.</p>
+</div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.example.TicketsDemo.controller;
 
+import com.example.TicketsDemo.model.Cliente;
 import com.example.TicketsDemo.model.Ticket;
 import com.example.TicketsDemo.model.Usuario;
 import com.example.TicketsDemo.service.UtilService;
@@ -9,8 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.security.Principal;
+
 
 @Controller
+@RequestMapping("/index")
 public class IndexController {
 
     @Autowired
@@ -22,13 +26,16 @@ public class IndexController {
 return "index";
     }
     @GetMapping("/pedirsoporte")
-    public String pedirSoporte(){return "pedirsoporte";}
+    public String pedirSoporte(Model model){
+        Ticket ticket = new Ticket();
+        model.addAttribute("Ticket",ticket);
+        return "pedirsoporte";
+    }
 
-//    @PostMapping("/registrarsoporte")
-//    public @ResponseBody String registrarSoporte(@RequestParam String  json){
-//        Ticket ticket = (new Gson()).fromJson(json, Ticket.class);
-//        String estado = utilService.registrarTicket(ticket);
-//        System.out.println(estado);
-//        return estado;
-//    }
+    @PostMapping("/registrarsoporte")
+    public String registrarSoporte(@ModelAttribute("Ticket")Ticket ticket,Principal principal){
+        boolean estado = utilService.registrarTicket(ticket,principal.getName().toString());
+        if (estado){return "/index";}
+        else{return "redirect:/index/pedirsoporte?error";}
+    }
 }
