@@ -1,36 +1,25 @@
 package com.example.TicketsDemo.model;
 
 public class Usuario {
-    private Long idUsuario;
-    private String usuario;
-    private String contrasena;
-    private String rol;
-    private String nombre;
-    private String direccion;
-    private String tel;
-    private String correo;
+   private Long idUsuario;
+   private String usuario;
+   private String contrasena;
+   private String rol;
+   private String correo;
+   private String nombre;
+   private int disponible;
 
-    public Usuario(Long idUsuario, String usuario, String contrasena, String rol, String nombre, String direccion, String tel, String correo) {
+    public Usuario() {
+    }
+
+    public Usuario(Long idUsuario, String usuario, String contrasena, String rol, String correo, String nombre, int disponible) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.contrasena = contrasena;
         this.rol = rol;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.tel = tel;
         this.correo = correo;
-    }
-    public Usuario(Long idUsuario, String usuario, String contrasena) {
-        this.idUsuario = idUsuario;
-        this.usuario = usuario;
-        this.contrasena = contrasena;
-    }
-    public Usuario(String usuario, String contrasena) {
-        this.usuario = usuario;
-        this.contrasena = contrasena;
-    }
-
-    public Usuario() {
+        this.nombre = nombre;
+        this.disponible = disponible;
     }
 
     public Long getIdUsuario() {
@@ -65,6 +54,14 @@ public class Usuario {
         this.rol = rol;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -73,27 +70,11 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public int getDisponible() {
+        return disponible;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setDisponible(int disponible) {
+        this.disponible = disponible;
     }
 }

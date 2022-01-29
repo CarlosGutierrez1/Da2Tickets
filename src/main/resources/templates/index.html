@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link th:href="@{/css/main.css}" rel="stylesheet" />
+
+<head th:replace="layout/_head :: head(~{::link})">
     <link th:href="@{/css/index.css}" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
     <title>Soporte Da2</title>
 </head>
+
+
+
+
+
 <body>
 
 <nav th:replace="layout/_navbar :: navbar"></nav>

@@ -2,19 +2,35 @@ package com.example.TicketsDemo.model;
 
 public class Ticket {
     private Long idTicket;
-    private String nombreEquipo;
-    private String codigoEquipo;
-    private Long idCreador;
+    private Long idCliente;
+    private Long idEncargado;
+    private String tipoSoporte;
+    private String prioridad;
+    private String numTicket;
+    private String descripcion;
     private int estado;
 
     public Ticket() {
     }
 
-    public Ticket(Long idTicket, String nombreEquipo, String codigoEquipo, Long idCreador, int estado) {
+    public Ticket(Long idTicket, Long idCliente, Long idEncargado, String tipoSoporte, String prioridad, String numTicket, String descripcion, int estado) {
         this.idTicket = idTicket;
-        this.nombreEquipo = nombreEquipo;
-        this.codigoEquipo = codigoEquipo;
-        this.idCreador = idCreador;
+        this.idCliente = idCliente;
+        this.idEncargado = idEncargado;
+        this.tipoSoporte = tipoSoporte;
+        this.prioridad = prioridad;
+        this.numTicket = numTicket;
+        this.descripcion = descripcion;
+        this.estado = estado;
+    }
+
+    public Ticket(Long idTicket, Long idCliente, String tipoSoporte, String prioridad, String numTicket, String descripcion, int estado) {
+        this.idTicket = idTicket;
+        this.idCliente = idCliente;
+        this.tipoSoporte = tipoSoporte;
+        this.prioridad = prioridad;
+        this.numTicket = numTicket;
+        this.descripcion = descripcion;
         this.estado = estado;
     }
 
@@ -26,28 +42,52 @@ public class Ticket {
         this.idTicket = idTicket;
     }
 
-    public String getNombreEquipo() {
-        return nombreEquipo;
+    public Long getIdCliente() {
+        return idCliente;
     }
 
-    public void setNombreEquipo(String nombreEquipo) {
-        this.nombreEquipo = nombreEquipo;
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public String getCodigoEquipo() {
-        return codigoEquipo;
+    public Long getIdEncargado() {
+        return idEncargado;
     }
 
-    public void setCodigoEquipo(String codigoEquipo) {
-        this.codigoEquipo = codigoEquipo;
+    public void setIdEncargado(Long idEncargado) {
+        this.idEncargado = idEncargado;
     }
 
-    public Long getIdCreador() {
-        return idCreador;
+    public String getTipoSoporte() {
+        return tipoSoporte;
     }
 
-    public void setIdCreador(Long idCreador) {
-        this.idCreador = idCreador;
+    public void setTipoSoporte(String tipoSoporte) {
+        this.tipoSoporte = tipoSoporte;
+    }
+
+    public String getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(String prioridad) {
+        this.prioridad = prioridad;
+    }
+
+    public String getNumTicket() {
+        return numTicket;
+    }
+
+    public void setNumTicket(String numTicket) {
+        this.numTicket = numTicket;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public int getEstado() {

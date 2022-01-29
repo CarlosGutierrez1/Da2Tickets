@@ -14,12 +14,14 @@ public class UtilServiceImpl implements UtilService{
     @Autowired
     UtilRepository utilRepository;
 
-    @Transactional(readOnly = true)
-    public List<Usuario> obtenerUsuarioConCredenciales(Usuario user){
-        return utilRepository.obtenerUsuarioConCredenciales(user);
-    }
-    @Transactional(readOnly = true)
-    public String registrarTicket(Ticket ticket){
-        return utilRepository.registrarTicket(ticket);
-    }
+//    @Transactional(readOnly = true)
+//    public List<Usuario> obtenerUsuarioConCredenciales(Usuario user){
+//        return utilRepository.obtenerUsuarioConCredenciales(user);
+//    }
+//    @Transactional(readOnly = true)
+//    public String registrarTicket(Ticket ticket){
+//        return utilRepository.registrarTicket(ticket);
+//    }
+
+
 }
