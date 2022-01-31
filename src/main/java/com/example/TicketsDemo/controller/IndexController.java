@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
@@ -33,9 +34,12 @@ return "index";
     }
 
     @PostMapping("/registrarsoporte")
-    public String registrarSoporte(@ModelAttribute("Ticket")Ticket ticket,Principal principal){
+    public String registrarSoporte(@ModelAttribute("Ticket")Ticket ticket,Principal principal, Model model){
         boolean estado = utilService.registrarTicket(ticket,principal.getName().toString());
-        if (estado){return "/index";}
-        else{return "redirect:/index/pedirsoporte?error";}
+        if (estado){
+            model.addAttribute("ticket",ticket);
+            return  "detalleticket";
+        }
+        else{return  "redirect:/index/pedirsoporte?error";}
     }
 }

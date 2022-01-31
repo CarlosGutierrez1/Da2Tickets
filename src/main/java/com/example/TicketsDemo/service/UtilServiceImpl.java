@@ -63,12 +63,17 @@ public class UtilServiceImpl implements UtilService{
         ticket.setEstado(0);
         if (idCliente!=0L){ticket.setIdCliente(idCliente);}
         else{return false;}
-        enviarEmailConTicket(ticket.getNumTicket(),correoUsuario);
+        enviarEmailConTicket(ticket,correoUsuario);
+//        if(utilRepository.registrarTicket(ticket)){
+//            return ticket;
+//        }else{ return tr;}
         return utilRepository.registrarTicket(ticket);
+
     }
-    public void enviarEmailConTicket(String ticket, String correoUsuario){
-        String body = "Su solicitud de soporte hecha desde "+correoUsuario+" fue correctamente generada. \n"+
-                "Su ticket es #"+ticket+"\n";
+    public void enviarEmailConTicket(Ticket ticket, String correoUsuario){
+        String body = "Su solicitud de soporte hecha desde el correo: "+correoUsuario+" fue correctamente generada. \n"+
+                "Los detalles son: \n"+"Tipo de soporte: "+ticket.getTipoSoporte()+"\nPrioridad: "+ticket.getPrioridad()+"\n"+
+                "Ticket #"+ticket.getNumTicket()+"\n"+"Descripcion: "+ticket.getDescripcion()+"\n";
         String subject = "Solicitud linea de soporte grupo Da2";
         Email email = new Email(correoUsuario,body,subject);
         try{

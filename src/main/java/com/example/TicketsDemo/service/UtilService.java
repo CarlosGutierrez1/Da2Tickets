@@ -11,6 +11,6 @@ public interface UtilService {
     public String generadorRandomTicket();
     public boolean verificarSiNumTicketExiste(String numTicket);
     public boolean registrarTicket(Ticket ticket,String correoUsuario);
-    public void enviarEmailConTicket(String ticket, String correoUsuario);
+    public void enviarEmailConTicket(Ticket ticket, String correoUsuario);
 
 }
