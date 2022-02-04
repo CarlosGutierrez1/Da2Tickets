@@ -72,7 +72,7 @@ public class UtilServiceImpl implements UtilService{
     }
     public void enviarEmailConTicket(Ticket ticket, String correoUsuario){
         String body = "Su solicitud de soporte hecha desde el correo: "+correoUsuario+" fue correctamente generada. \n"+
-                "Los detalles son: \n"+"Tipo de soporte: "+ticket.getTipoSoporte()+"\nPrioridad: "+ticket.getPrioridad()+"\n"+
+                "Los detalles son: \n"+"Tipo de soporte: "+ticket.getTipoSoporte()+"\nPrioridad: "+ticket.getIdPrioridad()+"\n"+
                 "Ticket #"+ticket.getNumTicket()+"\n"+"Descripcion: "+ticket.getDescripcion()+"\n";
         String subject = "Solicitud linea de soporte grupo Da2";
         Email email = new Email(correoUsuario,body,subject);
@@ -82,6 +82,9 @@ public class UtilServiceImpl implements UtilService{
             System.out.println("Error enviando email... Detalle -> " +e);
         }
 
+    }
+    public List<Ticket> obtenerTicketsHechosPorUnUsuario(String correo){
+        return utilRepository.obtenerTicketsHechosPorUnUsuario(correo);
     }
 
 

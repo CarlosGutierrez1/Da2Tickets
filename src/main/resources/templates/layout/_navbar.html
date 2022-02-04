@@ -5,14 +5,18 @@
 </head>
 <body>
 <nav th:fragment="navbar" class="navbar">
-  <div class="leftWrapper-navbar">
-    <h1>Da2</h1>
-    <p>Soporte</p>
+  <div class="leftWrapper-navbar"><a href="/index">
+    <h1>Linea de soporte</h1>
+    <p>Grupo Da2</p>
+  </a>
   </div>
   <div class="rightWrapper-navbar">
     <ul>
-      <li><a href="/index/pedirsoporte">Soporte</a></li>
-      <li><a href="/auth/registro">Admin</a></li>
+      <li th:if="${#httpServletRequest.remoteUser == null}"><a href="/index/pedirsoporte">Soporte</a></li>
+<!--      <li><a href="/auth/registro">Admin</a></li>-->
+      <form method="post" th:action="@{/auth/logout}" th:if="${#httpServletRequest.remoteUser !=null}">
+      <li th:if="${#httpServletRequest.remoteUser !=null}"><input type="submit" value="Cerrar sesion"/></li>
+      </form>
     </ul>
   </div>
 </nav>

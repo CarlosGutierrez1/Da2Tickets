@@ -12,5 +12,6 @@ public interface UtilRepository {
     public Long obtenerIdUsuarioPorCorreo(String correo);
     public boolean existeNumTicket(String numTicket);
     public boolean registrarTicket(Ticket ticket);
+    public List<Ticket> obtenerTicketsHechosPorUnUsuario(String correo);
 
 }

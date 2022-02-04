@@ -1,13 +1,13 @@
 @import './main.css';
-.navbar{
+/* .navbar{
   background-color: whitesmoke;
-}
+} */
 .main-section-login{
   width: 100%;
   height: 94vh;
-  position: absolute;
+  position: relative;
   top: 0%;
-  padding-top: 3%;
+  /* padding-top: 3%; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,6 +80,23 @@
   width: 60%;
   text-align: left;
 }
+.input-wrapper>div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.input-wrapper>div p{
+  font-size: var(--sm);
+  margin-right: 5px;
+}
+.input-wrapper>div a{
+  font-size: var(--sm);
+  font-weight: bold;
+  color: var(--light-blue);
+  text-decoration: none;
+
+}
 .button{
   width: 60%;
   height: 50px;
@@ -88,7 +105,7 @@
   border: 5px var(--text-input-field);
   border-radius: 15px;
   margin-top: 35px;
-  margin-bottom: 35px;
+  margin-bottom: 15px;
   z-index: 99999;
   background-color: var(--light-blue);
   color: var(--white);

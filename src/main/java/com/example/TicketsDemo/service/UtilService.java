@@ -12,5 +12,6 @@ public interface UtilService {
     public boolean verificarSiNumTicketExiste(String numTicket);
     public boolean registrarTicket(Ticket ticket,String correoUsuario);
     public void enviarEmailConTicket(Ticket ticket, String correoUsuario);
+    public List<Ticket> obtenerTicketsHechosPorUnUsuario(String correo);
 
 }

@@ -20,15 +20,23 @@ public class JdbcUtilRepository implements UtilRepository {
     }
 
     public Boolean registrarUsuario(Usuario user){
-        int estado = jdbcTemplate.update("insert into Usuarios(contrasena,rol,correo,nombre,disponible) values(?,?,?,?,?)",user.getContrasena(),user.getRol()
-                ,user.getCorreo(),user.getNombre(),1);
-        return estado==1;
+        Long existeUsuarioConMismoCorreo = obtenerIdUsuarioPorCorreo(user.getCorreo());
+        System.out.println(existeUsuarioConMismoCorreo);
+        if (existeUsuarioConMismoCorreo.equals(0) || existeUsuarioConMismoCorreo==0L || existeUsuarioConMismoCorreo==null){
+            int estado = jdbcTemplate.update("insert into Usuarios(contrasena,rol,correo,nombre,disponible) values(?,?,?,?,?)",user.getContrasena(),user.getRol()
+                    ,user.getCorreo(),user.getNombre(),1);
+            return estado==1;
+
+        }else{
+            return false;
+        }
     }
     public Long obtenerIdUsuarioPorCorreo(String correo){
         try{
+            System.out.println(jdbcTemplate.queryForObject("select idUsuario from Usuarios where correo=? limit 1",new Object[]{correo},Long.class));
             return jdbcTemplate.queryForObject("select idUsuario from Usuarios where correo=? limit 1",new Object[]{correo},Long.class);
         }catch (Exception e) {
-            System.out.println("No se encontro el usuario");
+            System.out.println("No se encontro el usuario " + e);
             return 0L;
         }
     }
@@ -39,11 +47,30 @@ public class JdbcUtilRepository implements UtilRepository {
     }
 
     public boolean registrarTicket(Ticket ticket){
-        int estado = jdbcTemplate.update("insert into Tickets(idCliente,tipoSoporte,prioridad,numTicket,descripcionSoporte,estado) values(?,?,?,?,?,?)",
-                ticket.getIdCliente(),ticket.getTipoSoporte(),ticket.getPrioridad(),ticket.getNumTicket(),ticket.getDescripcion(),ticket.getEstado());
+        int estado = jdbcTemplate.update("insert into Tickets(idCliente,tipoSoporte,idPrioridad,numTicket,descripcionSoporte,estado) values(?,?,?,?,?,?)",
+                ticket.getIdCliente(),ticket.getTipoSoporte(),ticket.getIdPrioridad(),ticket.getNumTicket(),ticket.getDescripcion(),ticket.getEstado());
         return estado==1;
     }
 
+    public List<Ticket> obtenerTicketsHechosPorUnUsuario(String correo){
+        Long idUsuario = obtenerIdUsuarioPorCorreo(correo);
+        if (idUsuario!=0){
+            String sql = "select * from Tickets T inner join Prioridad P on T.idPrioridad=P.idPrioridad where T.idCliente="+idUsuario;
+            return jdbcTemplate.query(sql,(rs,rowNum)->
+                    new Ticket(
+                            rs.getLong("idTicket"),
+                            rs.getLong("idCliente"),
+                            rs.getString("tipoSoporte"),
+                            rs.getLong("idPrioridad"),
+                            rs.getString("numTicket"),
+                            rs.getString("descripcion"),
+                            rs.getInt("estado")
+                    ));
+        }else{
+            System.out.println("No se encontro el usuario " + correo);
+            return null;
+        }
+    }
 
 
 }

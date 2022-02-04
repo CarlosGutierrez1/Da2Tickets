@@ -6,7 +6,7 @@
 <body>
 
 <nav th:replace="layout/_navbar :: navbar"></nav>
-
+<section th:replace="layout/_menuizquierdo :: menuizquierdo"></section>
 <section class="main-section">
     <div class="input-wrapper">
         <h2>Detalles de su solicitud</h2>
@@ -14,7 +14,7 @@
         <div class="detalles-wrapper">
             <div class="left-wrapper">
                 <p th:text="${'Tipo de soporte: ' + ticket.tipoSoporte}"></p>
-                <p th:text="${'Prioridad: ' + ticket.prioridad}"></p>
+                <p th:text="${'Prioridad: ' + ticket.idPrioridad}"></p>
                 <p th:text="${'Ticket #'+ ticket.numTicket}"></p>
             </div>
             <div class="right-wrapper">
@@ -25,9 +25,9 @@
         <form method="get" th:action="@{/index/pedirsoporte}">
             <input type="submit" class="button" value="Registrar otra solicitud">
             </form>
-        <form method="get" th:action="@{/auth/login?logout}">
-            <input type="submit" class="button button-logout" value="Cerrar sesion">
-        </form>
+<!--        <form method="post" th:action="@{/auth/logout}">-->
+<!--            <input type="submit" class="button button-logout" value="Cerrar sesion">-->
+<!--        </form>-->
     </div>
 </section>
 </body>

@@ -1,0 +1,66 @@
+@import './main.css';
+
+/* .navbar{
+  background-color: whitesmoke;
+} */
+.section-tickets-disponibles{
+  display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+background-color: var(--element-white);
+border-radius: 15px;
+box-shadow: var(--bottom-box-shadow);
+width: 80%;
+height: 80vh;
+position: absolute;
+bottom: 0%;
+padding: 20px;
+margin: auto;
+margin-top: 100px;
+position: absolute;
+right: 5%;
+bottom: 5%;
+opacity: 0.7;
+}
+.section-tickets-disponibles:hover{
+  transition: opacity 0.5s var(--transition-effect);
+  opacity: 1;
+}
+.contenedor-ticket{
+  border: 2px solid var(--background-white);
+  border-radius: 15px;
+  width: 80%;
+  height: 90px;
+  display: flex;
+  flex-direction: row;
+  /* background-color: blue; */
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  padding: 5px;
+}
+.contenedor-ticket:hover{
+  background-color: var(--background-white);
+  transition: background-color 0.5s ease-in-out;
+}
+.contenedor-ticket div{
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+}
+.contenedor-ticket input{
+  height: 50px;
+  width: 150px;
+  background-color: var(--light-blue);
+  color: var(--white);
+  font-size: var(--md);
+  border-radius: 15px;
+  cursor: pointer;
+
+}

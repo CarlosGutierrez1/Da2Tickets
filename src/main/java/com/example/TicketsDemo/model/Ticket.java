@@ -5,36 +5,36 @@ public class Ticket {
     private Long idCliente;
     private Long idEncargado;
     private String tipoSoporte;
-    private String prioridad;
+    private Long idPrioridad;
     private String numTicket;
     private String descripcion;
     private int estado;
 
     public Ticket() {
     }
-    public Ticket(String tipoSoporte, String prioridad, String descripcion) {
+
+    public Ticket(String tipoSoporte, Long idPrioridad, String descripcion) {
         this.tipoSoporte = tipoSoporte;
-        this.prioridad = prioridad;
+        this.idPrioridad = idPrioridad;
         this.descripcion = descripcion;
     }
 
-
-    public Ticket(Long idTicket, Long idCliente, Long idEncargado, String tipoSoporte, String prioridad, String numTicket, String descripcion, int estado) {
+    public Ticket(Long idTicket, Long idCliente, String tipoSoporte, Long idPrioridad, String numTicket, String descripcion, int estado) {
         this.idTicket = idTicket;
         this.idCliente = idCliente;
-        this.idEncargado = idEncargado;
         this.tipoSoporte = tipoSoporte;
-        this.prioridad = prioridad;
+        this.idPrioridad = idPrioridad;
         this.numTicket = numTicket;
         this.descripcion = descripcion;
         this.estado = estado;
     }
 
-    public Ticket(Long idTicket, Long idCliente, String tipoSoporte, String prioridad, String numTicket, String descripcion, int estado) {
+    public Ticket(Long idTicket, Long idCliente, Long idEncargado, String tipoSoporte, Long idPrioridad, String numTicket, String descripcion, int estado) {
         this.idTicket = idTicket;
         this.idCliente = idCliente;
+        this.idEncargado = idEncargado;
         this.tipoSoporte = tipoSoporte;
-        this.prioridad = prioridad;
+        this.idPrioridad = idPrioridad;
         this.numTicket = numTicket;
         this.descripcion = descripcion;
         this.estado = estado;
@@ -72,12 +72,12 @@ public class Ticket {
         this.tipoSoporte = tipoSoporte;
     }
 
-    public String getPrioridad() {
-        return prioridad;
+    public Long getIdPrioridad() {
+        return idPrioridad;
     }
 
-    public void setPrioridad(String prioridad) {
-        this.prioridad = prioridad;
+    public void setIdPrioridad(Long idPrioridad) {
+        this.idPrioridad = idPrioridad;
     }
 
     public String getNumTicket() {

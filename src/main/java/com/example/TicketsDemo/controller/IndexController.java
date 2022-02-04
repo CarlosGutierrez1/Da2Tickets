@@ -42,4 +42,13 @@ return "index";
         }
         else{return  "redirect:/index/pedirsoporte?error";}
     }
+    @GetMapping("/tickets")
+    public String ticketsTemplate(){
+        return "tickets";
+    }
+
+//    @PostMapping("/mistickets")
+//    public String misTickets(Model model){
+//        return "tickets";
+//    }
 }

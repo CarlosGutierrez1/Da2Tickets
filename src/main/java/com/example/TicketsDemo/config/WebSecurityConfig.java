@@ -40,10 +40,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().authorizeRequests()
                 .antMatchers("/index/pedirsoporte","/index/registrarsoporte","/index/detallessoporte").hasAnyAuthority("ROL_C","ROL_A")
-                .antMatchers("/index","/auth/**","/js/**","/css/**","/imgs/**").permitAll()
+                .antMatchers("/index","/auth/**","/js/**","/css/**","/imgs/**","/index/tickets").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/auth/login").successHandler(authenticationSuccessHandler).permitAll()
-                .and().logout().permitAll();
+                .and().logout().logoutUrl("/auth/logout").logoutSuccessUrl("/auth/login").invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID").permitAll();
     }
     @Override
     public void configure(WebSecurity web) throws Exception {
