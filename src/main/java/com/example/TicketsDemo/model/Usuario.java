@@ -36,6 +36,13 @@ public class Usuario {
         this.disponible = disponible;
     }
 
+    public Usuario(Long idUsuario, String rol, String correo, String nombre) {
+        this.idUsuario = idUsuario;
+        this.rol = rol;
+        this.correo = correo;
+        this.nombre = nombre;
+    }
+
     public Long getIdUsuario() {
         return idUsuario;
     }

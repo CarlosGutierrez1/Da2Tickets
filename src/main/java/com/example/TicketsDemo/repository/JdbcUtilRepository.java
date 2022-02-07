@@ -1,6 +1,7 @@
 package com.example.TicketsDemo.repository;
 
 import com.example.TicketsDemo.model.Cliente;
+import com.example.TicketsDemo.model.Administracion;
 import com.example.TicketsDemo.model.Ticket;
 import com.example.TicketsDemo.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class JdbcUtilRepository implements UtilRepository {
     public Boolean registrarUsuarioCliente(Cliente cliente,Long idUsuario){
         int estado = jdbcTemplate.update("insert into Clientes(idUsuario,numDoc, tipoDoc,empresa,cargo) values(?,?,?,?,?)",idUsuario,cliente.getNumDoc(),
                 cliente.getTipoDoc(),cliente.getEmpresa(),cliente.getCargo());
+        return estado==1;
+    }
+    public Boolean registrarUsuarioAdministracion(Administracion adminis, Long idUsuario){
+        int estado = jdbcTemplate.update("insert into Administracion(idUsuario) values(?)",idUsuario);
         return estado==1;
     }
 
@@ -40,6 +45,14 @@ public class JdbcUtilRepository implements UtilRepository {
             return 0L;
         }
     }
+    public String obtenerRolUsuarioPorCorreo(String correo){
+        try {
+            return jdbcTemplate.queryForObject("Select rol from Usuarios where correo=?",new Object[]{correo},String.class);
+        }catch (Exception e){
+            System.out.println("No se encontro al usuario, error: " + e);
+            return "";
+        }
+    }
 
     public boolean existeNumTicket(String numTicket){
         int existe = jdbcTemplate.queryForObject("select count(1) from Tickets where numTicket=?",new Object[]{numTicket},Integer.class);
@@ -47,7 +60,7 @@ public class JdbcUtilRepository implements UtilRepository {
     }
 
     public boolean registrarTicket(Ticket ticket){
-        int estado = jdbcTemplate.update("insert into Tickets(idCliente,tipoSoporte,idPrioridad,numTicket,descripcionSoporte,estado) values(?,?,?,?,?,?)",
+        int estado = jdbcTemplate.update("insert into Tickets(idCliente,tipoSoporte,idPrioridad,numTicket,descripcion,estado) values(?,?,?,?,?,?)",
                 ticket.getIdCliente(),ticket.getTipoSoporte(),ticket.getIdPrioridad(),ticket.getNumTicket(),ticket.getDescripcion(),ticket.getEstado());
         return estado==1;
     }
@@ -64,7 +77,8 @@ public class JdbcUtilRepository implements UtilRepository {
                             rs.getLong("idPrioridad"),
                             rs.getString("numTicket"),
                             rs.getString("descripcion"),
-                            rs.getInt("estado")
+                            rs.getInt("estado"),
+                            rs.getString("prioridad")
                     ));
         }else{
             System.out.println("No se encontro el usuario " + correo);
@@ -72,5 +86,98 @@ public class JdbcUtilRepository implements UtilRepository {
         }
     }
 
+
+    public List<Ticket> obtenerTodosLosTiketsConEstadoDisponible(){
+            String sql = "select idTicket,idCliente, tipoSoporte, numTicket, descripcion, " +
+                    "estado, prioridad,(U.correo) as creador from Tickets T inner join Prioridad P on T.idPrioridad=P.idPrioridad inner join Usuarios U on U.idUsuario=T.idCliente where T.estado=0";
+            return jdbcTemplate.query(sql,(rs,rowNum)->
+                    new Ticket(
+                            rs.getLong("idTicket"),
+                            rs.getLong("idCliente"),
+                            rs.getString("tipoSoporte"),
+                            rs.getString("numTicket"),
+                            rs.getString("descripcion"),
+                            rs.getInt("estado"),
+                            rs.getString("prioridad"),
+                            rs.getString("creador")
+                    ));
+
+    }
+
+    public List<Ticket> obtenerTicketsAsignadosATecnico(Long idTecnico){
+        String sql = "select idTicket,idCliente, tipoSoporte, numTicket, descripcion, " +
+                "estado, prioridad,(U.correo) as creador from Tickets T inner join Prioridad P on T.idPrioridad=P.idPrioridad inner join Usuarios U on U.idUsuario=T.idCliente where T.idEncargado="+idTecnico+" and T.estado=0";
+        return jdbcTemplate.query(sql,(rs,rowNum)->
+                new Ticket(
+                        rs.getLong("idTicket"),
+                        rs.getLong("idCliente"),
+                        rs.getString("tipoSoporte"),
+                        rs.getString("numTicket"),
+                        rs.getString("descripcion"),
+                        rs.getInt("estado"),
+                        rs.getString("prioridad"),
+                        rs.getString("creador")
+                ));
+    }
+
+    public List<Ticket> obtenerTicketPorIdTicket(Long idTicket){
+
+        String sql = "select idTicket, idCliente, tipoSoporte, numTicket, descripcion, estado, prioridad from Tickets T inner join Prioridad P on T.idPrioridad=P.idPrioridad where T.idTicket="+idTicket;
+        return jdbcTemplate.query(sql,(rs,rowNum)->
+                new Ticket(
+                        rs.getLong("idTicket"),
+                        rs.getLong("idCliente"),
+                        rs.getString("tipoSoporte"),
+                        rs.getString("numTicket"),
+                        rs.getString("descripcion"),
+                        rs.getInt("estado"),
+                        rs.getString("prioridad")
+                ));
+
+    }
+
+    public String obtenerTipoPrioridadPorId(Long idPrioridad){
+        return jdbcTemplate.queryForObject("select prioridad from Prioridad where idPrioridad=?",new Object[]{idPrioridad},String.class);
+    }
+
+    public List<Ticket> obtenerTicketPorNumTicket(String numTicket){
+        String sql = "select idTicket, idCliente, tipoSoporte, numTicket, descripcion, estado, prioridad from Tickets T inner join Prioridad P on T.idPrioridad=P.idPrioridad where T.numTicket='"+numTicket+"'";
+        return jdbcTemplate.query(sql,(rs,rowNum)->
+                new Ticket(
+                        rs.getLong("idTicket"),
+                        rs.getLong("idCliente"),
+                        rs.getString("tipoSoporte"),
+                        rs.getString("numTicket"),
+                        rs.getString("descripcion"),
+                        rs.getInt("estado"),
+                        rs.getString("prioridad")
+                ));
+    }
+
+    public List<Administracion> obtenerTodosLosTecnicos(){
+        String sql ="Select U.idUsuario,rol,correo,nombre,idAdministracion from Usuarios U inner join Administracion A on A.idUsuario=U.idUsuario where U.rol='ROL_T'";
+        return jdbcTemplate.query(sql,(rs,rowNum)->
+                new Administracion(
+                        rs.getLong("idUsuario"),
+                        rs.getString("rol"),
+                        rs.getString("correo"),
+                        rs.getString("nombre"),
+                        rs.getLong("idAdministracion")
+
+                ));
+    }
+
+    public boolean asignarTecnicoATicket(Long idTecnico, Long idTicket){
+        int estado = jdbcTemplate.update("update Tickets set idEncargado=? where idTicket=?",idTecnico,idTicket);
+        return estado==1;
+    }
+    public Long obtenerIdUsuarioPorIdAdministracion(Long idAdministracion){
+        return jdbcTemplate.queryForObject("select U.idUsuario from Usuarios U inner join Administracion A on U.idUsuario=A.idUsuario where A.idAdministracion=?",new Object[]{idAdministracion},Long.class);
+    }
+
+    public boolean marcarTicketComoResuelto(Long idTicket){
+        int estado = jdbcTemplate.update("update Tickets set estado=? where idTicket=?",1,idTicket);
+        return estado==1;
+    }
 
 }

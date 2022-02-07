@@ -5,20 +5,57 @@
     <title>Title</title>
 </head>
 <body>
-<section th:fragment="menuizquierdo" class="left-menu-section">
+<section th:fragment="menuizquierdo" class="left-menu-section" th:if="${#httpServletRequest.remoteUser !=null}">
   <div class="top-title">Navegacion:</div>
-    <div class="left-menu-item">
-        <img th:src="@{/imgs/listaicon.png}" alt="Icon"/>
-        <p>Ejemplo 1</p>
+    <div class="left-menu-item"  sec:authorize="hasAuthority('ROL_C')">
+        <a href="/index/pedirsoporte">
+        <img  th:src="@{/imgs/listaicon.png}" alt="Icon" />
+        <p>Registrar nuevo ticket</p>
+        </a>
     </div>
-    <div class="left-menu-item">
-        <img th:src="@{/imgs/listaicon.png}" alt="Icon"/>
-        <p>Ejemplo 2</p>
+    <div class="left-menu-item" sec:authorize="hasAuthority('ROL_C')">
+        <a href="/index/tickets">
+        <img  th:src="@{/imgs/listaicon.png}" alt="Icon" />
+        <p>Ver mis tickets</p>
+        </a>
     </div>
-    <div class="left-menu-item">
-        <img th:src="@{/imgs/listaicon.png}" alt="Icon"/>
-        <p>Ejemplo 3</p>
+    <div class="left-menu-item" sec:authorize="hasAuthority('ROL_C')">
+        <a href="/index/buscarticket">
+        <img  th:src="@{/imgs/listaicon.png}" alt="Icon" />
+        <p>Buscar ticket por numero</p>
+    </a>
     </div>
+    <div class="left-menu-item" sec:authorize="hasAuthority('ROL_S')">
+        <a href="/index/tickets">
+            <img  th:src="@{/imgs/listaicon.png}" alt="Icon" />
+            <p>Ver Tickets</p>
+        </a>
+    </div>
+    <div class="left-menu-item" sec:authorize="hasAuthority('ROL_S')">
+        <a href="/index/buscarticket">
+        <img  th:src="@{/imgs/listaicon.png}" alt="Icon" />
+        <p>Buscar ticket por numero</p>
+        </a>
+    </div>
+    <div class="left-menu-item" sec:authorize="hasAuthority('ROL_S')">
+        <a href="/auth/registroAdmin">
+            <img  th:src="@{/imgs/listaicon.png}" alt="Icon" />
+            <p>Registrar un administrativo</p>
+        </a>
+    </div>
+    <div class="left-menu-item" sec:authorize="hasAuthority('ROL_T')">
+        <a href="/index/tickets">
+            <img  th:src="@{/imgs/listaicon.png}" alt="Icon" />
+            <p>Ver mis Tickets</p>
+        </a>
+    </div>
+    <div class="left-menu-item" sec:authorize="hasAuthority('ROL_T')">
+        <a href="/index/buscarticket">
+            <img  th:src="@{/imgs/listaicon.png}" alt="Icon" />
+            <p>Buscar ticket por numero</p>
+        </a>
+    </div>
+
 </section>
 </body>
 </html>

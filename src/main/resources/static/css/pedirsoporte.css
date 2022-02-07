@@ -173,3 +173,37 @@
 .button-logout{
   background-color: #DB5245;
 }
+.label-fixed{
+  text-align: center !important;
+}
+.btn-fixed{
+  margin-top: 30px;
+}
+.asignacion-wrapper{
+  width: 50%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.asignacion-wrapper form{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.asignacion-wrapper form>label{
+  text-align: center !important;
+}
+.asignacion-wrapper form>select{
+  width: 46%;
+  height: 30%;
+  text-align: center;
+}
+.asignacion-wrapper form>input[type=submit]{
+  margin-top: 30px;
+}

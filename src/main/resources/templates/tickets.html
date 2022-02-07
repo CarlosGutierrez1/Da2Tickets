@@ -7,87 +7,43 @@
 <nav th:replace="layout/_navbar :: navbar"></nav>
 <section th:replace="layout/_menuizquierdo :: menuizquierdo"></section>
 <section class="section-tickets-disponibles">
-    <div><h2>Solicitudes pendientes:</h2></div>
-    <div class="contenedor-ticket">
+    <div class="text-main" sec:authorize="hasAuthority('ROL_S')"><h2>Solicitudes pendientes:</h2></div>
+    <div class="text-main" sec:authorize="hasAuthority('ROL_C')"><h2>Tickets solicitados:</h2></div>
+    <div class="text-main" sec:authorize="hasAuthority('ROL_T')"><h2>Tickets asignados:</h2></div>
+    <div class="contenedor-ticket" th:each="ticket: ${tickets}">
         <div>
-            <p><b>Solicitado por:</b> correo@correo.com</p>
-            <p><b>Prioridad:</b> Alta</p>
+            <b>Solicitado por: </b><p th:text="${ticket.creador}"> </p>
+
         </div>
         <div>
-            <p><b>Descripcion:</b></p>
-            <p>Esta es la descripcion del ticket que se ha generado.</p>
+            <b>Prioridad: </b><p th:text="${ticket.prioridad}">  </p>
         </div>
         <div>
-            <form>
-                <input type="hidden" name="numTicket" id="numTicket" value="1"/>
+            <b>Descripcion:</b>
+            <p class="descripcion-ticket" th:text="${ticket.descripcion}"></p>
+        </div>
+        <div>
+            <b>Estado:</b>
+            <p th:text="${ticket.estadoLetras}"></p>
+        </div>
+        <div>
+            <form method="post" th:action="@{/index/detalleticket}">
+                <input type="hidden" name="idTicket" id="idTicket" th:value="${ticket.idTicket}"/>
                 <input type="submit" value="Detalles"/>
             </form>
         </div>
     </div>
-    <div class="contenedor-ticket">
-        <div>
-            <p><b>Solicitado por:</b> correo@correo.com</p>
-            <p><b>Prioridad:</b> Alta</p>
-        </div>
-        <div>
-            <p><b>Descripcion:</b></p>
-            <p>Esta es la descripcion del ticket que se ha generado.</p>
-        </div>
-        <div>
-            <form>
-                <input type="hidden" name="numTicket" id="numTicket" value="1"/>
-                <input type="submit" value="Detalles"/>
-            </form>
-        </div>
-    </div>
-    <div class="contenedor-ticket">
-        <div>
-            <p><b>Solicitado por:</b> correo@correo.com</p>
-            <p><b>Prioridad:</b> Alta</p>
-        </div>
-        <div>
-            <p><b>Descripcion:</b></p>
-            <p>Esta es la descripcion del ticket que se ha generado.</p>
-        </div>
-        <div>
-            <form>
-                <input type="hidden" name="numTicket" id="numTicket" value="1"/>
-                <input type="submit" value="Detalles"/>
-            </form>
-        </div>
-    </div>
-    <div class="contenedor-ticket">
-        <div>
-            <p><b>Solicitado por:</b> correo@correo.com</p>
-            <p><b>Prioridad:</b> Alta</p>
-        </div>
-        <div>
-            <p><b>Descripcion:</b></p>
-            <p>Esta es la descripcion del ticket que se ha generado.</p>
-        </div>
-        <div>
-            <form>
-                <input type="hidden" name="numTicket" id="numTicket" value="1"/>
-                <input type="submit" value="Detalles"/>
-            </form>
-        </div>
-    </div>
-    <div class="contenedor-ticket">
-        <div>
-            <p><b>Solicitado por:</b> correo@correo.com</p>
-            <p><b>Prioridad:</b> Alta</p>
-        </div>
-        <div>
-            <p><b>Descripcion:</b></p>
-            <p>Esta es la descripcion del ticket que se ha generado.</p>
-        </div>
-        <div>
-            <form>
-                <input type="hidden" name="numTicket" id="numTicket" value="1"/>
-                <input type="submit" value="Detalles"/>
-            </form>
-        </div>
-    </div>
+
 </section>
+
+<div th:if="${param.error}"  class="param-error">
+    <p>No se ha podido registrar al tecnico. Intente de nuevo mas tarde.</p>
+</div>
+<div th:if="${param.success}"  class="param-success">
+    <p>Se ha registrado exitosamente.</p>
+</div>
+<div th:if="${param.error2}"  class="param-error">
+    <p>No se ha podido cambiar el estado. Intente de nuevo mas tarde.</p>
+</div>
 </body>
 </html>

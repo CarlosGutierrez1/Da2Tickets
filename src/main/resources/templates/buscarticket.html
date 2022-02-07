@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/_head :: head(~{::link})">
+    <link th:href="@{/css/pedirsoporte.css}" rel="stylesheet" />
+</head>
+<body>
+<nav th:replace="layout/_navbar :: navbar"></nav>
+<section th:replace="layout/_menuizquierdo :: menuizquierdo"></section>
+
+
+<section class="main-section">
+    <div class="input-wrapper">
+        <h2>Buscar ticket por numero de ticket</h2>
+        <h4>Ingrese los datos solicitados:</h4>
+        <div class="detalles-wrapper">
+            <form method="post" th:action="@{/index/detalleticketbuscado}">
+                <label class="label-fixed" for="numTicket">#Ticket:</label>
+                <input type="number"  name="numTicket" id="numTicket" class="inputmain" placeholder="1231321321"/>
+                <input type="submit" class="button btn-fixed" value="Buscar">
+            </form>
+        </div>
+
+        <form method="get" th:action="@{/index/tickets}">
+            <input type="submit" class="button" value="Volver">
+        </form>
+        <!--        <form method="post" th:action="@{/auth/logout}">-->
+        <!--            <input type="submit" class="button button-logout" value="Cerrar sesion">-->
+        <!--        </form>-->
+    </div>
+</section>
+
+</body>
+</html>

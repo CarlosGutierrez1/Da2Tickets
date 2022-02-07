@@ -14,17 +14,35 @@
         <div class="detalles-wrapper">
             <div class="left-wrapper">
                 <p th:text="${'Tipo de soporte: ' + ticket.tipoSoporte}"></p>
-                <p th:text="${'Prioridad: ' + ticket.idPrioridad}"></p>
+                <p th:text="${'Prioridad: ' + ticket.prioridad}"></p>
                 <p th:text="${'Ticket #'+ ticket.numTicket}"></p>
             </div>
             <div class="right-wrapper">
                 <p th:text="${'Detalles: ' + ticket.descripcion}"></p>
             </div>
         </div>
+        <div class="asignacion-wrapper" sec:authorize="hasAuthority('ROL_S')">
+            <form method="post" th:action="@{/index/asignartecnico}" >
+                <label for="idTecnico">Seleccione un tecnico:</label>
+                <select class="" name="idTecnico"
+                        id="idTecnico" th:required="required" required autofocus="autofocus">
+                    <option th:each="tecnico: ${tecnicos}" th:value="${tecnico.idAdministracion}" th:text="${tecnico.correo + '  ' + tecnico.nombre}"></option>
+                </select>
+                <input type="hidden" th:value="${ticket.idTicket}" id="idTicket" name="idTicket"/>
+                <input type="submit" class="button" value="Asignar"/>
+            </form>
+        </div>
 
-        <form method="get" th:action="@{/index/pedirsoporte}">
+        <form method="get" th:action="@{/index/pedirsoporte}" sec:authorize="hasAuthority('ROL_C')">
             <input type="submit" class="button" value="Registrar otra solicitud">
             </form>
+        <form method="post" th:action="@{/index/marcarresuleto}" sec:authorize="hasAuthority('ROL_T')">
+            <input type="hidden" th:value="${ticket.idTicket}" id="idTicket1" name="idTicket1">
+            <input type="submit" class="button" value="Marcar como resuelto">
+        </form>
+        <form method="get" th:action="@{/index/tickets}">
+            <input type="submit" class="button" value="Volver">
+        </form>
 <!--        <form method="post" th:action="@{/auth/logout}">-->
 <!--            <input type="submit" class="button button-logout" value="Cerrar sesion">-->
 <!--        </form>-->

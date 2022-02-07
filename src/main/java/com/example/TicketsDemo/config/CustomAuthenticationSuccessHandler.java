@@ -17,10 +17,10 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
                                         Authentication authentication) throws IOException, ServletException {
         httpServletRequest.getSession().setMaxInactiveInterval(60 * 60);
         String autoridades = authentication.getAuthorities().toString();
-        if (autoridades.contains("ROL_A")) {
-            httpServletResponse.sendRedirect("");
-        } else if (autoridades.contains("ROL_B")) {
-            httpServletResponse.sendRedirect("");
+        if (autoridades.contains("ROL_S")) {
+            httpServletResponse.sendRedirect("/index/tickets");
+        } else if (autoridades.contains("ROL_T")) {
+            httpServletResponse.sendRedirect("/index/tickets");
         } else if (autoridades.contains("ROL_C")) {
             httpServletResponse.sendRedirect("/index/pedirsoporte");
         } else {

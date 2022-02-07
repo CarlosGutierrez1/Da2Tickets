@@ -6,7 +6,7 @@
 </head>
 <body>
 <nav th:replace="layout/_navbar :: navbar"></nav>
-<section class="main-section-login">
+<section class="main-section-login" th:if="${#httpServletRequest.remoteUser == null}">
     <div class="center-wrapper">
         <div class="input-wrapper fixed">
             <form method="post" th:action="@{/auth/registrausuario}" th:object="${Cliente}">
@@ -60,6 +60,52 @@
         </div>
     </div>
 </section>
+
+
+
+
+
+
+<section class="main-section-login" sec:authorize="hasAuthority('ROL_S')">
+    <div class="center-wrapper">
+        <div class="input-wrapper fixed">
+            <form method="post" th:action="@{/auth/registrarAdministracion}" th:object="${Administracion}">
+                <div class="top-wrapper">
+                    <h1>Registro de Administrativos</h1>
+                    <h4>Ingrese los datos solicitados:</h4>
+                </div>
+                <div class="center-wrapper2">
+                    <div class="inside-left-wrapper">
+                        <label for="correo">Correo:</label>
+                        <input type="email" name="correo" id="correo" class="inputmain" placeholder="juan@gmail.com"
+                               required autofocus="autofocus" th:required="required" th:field="*{correo}"/>
+                        <label for="pass">Contraseña</label>
+                        <input type="password" name="pass" id="pass" class="inputmain" placeholder="password" required
+                               autofocus="autofocus" th:required="required" th:field="*{contrasena}"/>
+
+                        <label for="nombre">Nombre: </label>
+                        <input type="text" name="nombre" id="nombre" class="inputmain" placeholder="Juan Torres"
+                               required autofocus="autofocus" th:required="required" th:field="*{nombre}"/>
+                        <label for="rol">Rol: </label>
+                        <select class="" name="rol"
+                                id="rol" th:required="required" required autofocus="autofocus"
+                                th:field="*{rol}">
+                            <option value="ROL_S">Supervisor</option>
+                            <option value="ROL_T">Tecnico</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bottom-wrapper"><input type="submit" class="button button-register-fixed"
+                                                   value="Registrarse"/></div>
+            </form>
+            <div><p>¿Ya tiene cuenta?</p><a href="/auth/login"> Iniciar sesion</a></div>
+        </div>
+    </div>
+</section>
+
+
+
+
 <div th:if="${param.error}" class="param-error">
     <p>No se pudo registrar el usuario. Intente de nuevo mas tarde.</p>
 </div>

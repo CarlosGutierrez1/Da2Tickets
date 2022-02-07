@@ -39,6 +39,7 @@ opacity: 0.7;
   align-items: center;
   margin: 15px;
   padding: 5px;
+  overflow: hidden;
 }
 .contenedor-ticket:hover{
   background-color: var(--background-white);
@@ -63,4 +64,11 @@ opacity: 0.7;
   border-radius: 15px;
   cursor: pointer;
 
+}
+.text-main{
+  position: absolute;
+  top: 5%;
+}
+.descripcion-ticket{
+  overflow: hidden;
 }

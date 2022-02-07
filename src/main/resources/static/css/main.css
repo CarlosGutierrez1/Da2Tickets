@@ -209,6 +209,7 @@ border-radius: 15px 15px 0 0;
   justify-content: center;
   border-top: 2px solid var(--background-white);
   border-bottom: 2px solid var(--background-white);
+  text-align: center;
 }
 .left-menu-item img{
   width: 16%;
@@ -217,4 +218,30 @@ border-radius: 15px 15px 0 0;
 }
 .left-menu-item p{
   font-size: var(--sm);
+  width: 84%;
+}
+.left-menu-item a{
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.left-menu-item:hover{
+  background-color: rgba(5, 114, 206, 0.05);
+  transition: background-color 0.3s ease;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

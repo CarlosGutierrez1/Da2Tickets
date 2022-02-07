@@ -1,5 +1,6 @@
 package com.example.TicketsDemo.controller;
 
+import com.example.TicketsDemo.model.Administracion;
 import com.example.TicketsDemo.model.Cliente;
 import com.example.TicketsDemo.model.Usuario;
 import com.example.TicketsDemo.service.UtilService;
@@ -25,6 +26,12 @@ public class AutenticacionController {
         model.addAttribute("Cliente",cliente);
         return  "registro";
     }
+    @GetMapping("/registroAdmin")
+    public String registrarAdminTemplate(Model model){
+        Administracion administracion = new Administracion();
+        model.addAttribute("Administracion",administracion);
+        return  "registro";
+    }
 
     @PostMapping("/registrausuario")
     public String registrarUsuario(@ModelAttribute("Cliente")Cliente cliente){
@@ -36,4 +43,13 @@ public class AutenticacionController {
 
 
     }
+    @PostMapping("/registrarAdministracion")
+    public String registrarAdministracion(@ModelAttribute("Administracion")Administracion administracion){
+        if(utilService.registrarAdministracion(administracion)){
+            return "redirect:/auth/login?success";
+        }else{
+            return "redirect:/auth/registro?error";
+        }
+    }
+
 }
