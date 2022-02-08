@@ -10,7 +10,8 @@
     <div class="text-main" sec:authorize="hasAuthority('ROL_S')"><h2>Solicitudes pendientes:</h2></div>
     <div class="text-main" sec:authorize="hasAuthority('ROL_C')"><h2>Tickets solicitados:</h2></div>
     <div class="text-main" sec:authorize="hasAuthority('ROL_T')"><h2>Tickets asignados:</h2></div>
-    <div class="contenedor-ticket" th:each="ticket: ${tickets}">
+    <div class="contenedor-ticket" th:if="${#lists.isEmpty(tickets)}"><h4>No hay tickets registrados...</h4></div>
+    <div class="contenedor-ticket" th:each="ticket: ${tickets}" th:if="${not #lists.isEmpty(tickets)}">
         <div>
             <b>Solicitado por: </b><p th:text="${ticket.creador}"> </p>
 

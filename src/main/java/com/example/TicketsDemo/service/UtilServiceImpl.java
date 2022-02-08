@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -72,6 +74,7 @@ public class UtilServiceImpl implements UtilService{
         ticket.setNumTicket(generadorRandomTicket());
         ticket.setEstado(0);
         ticket.setPrioridad(utilRepository.obtenerTipoPrioridadPorId(ticket.getIdPrioridad()));
+        ticket.setFechayhora(obtenerFechaYhoraActual());
         if (idCliente!=0L){ticket.setIdCliente(idCliente);}
         else{return false;}
         enviarEmailConTicket(ticket,correoUsuario);
@@ -94,6 +97,13 @@ public class UtilServiceImpl implements UtilService{
         }
 
     }
+    public void enviarEmailPersonalizado(Email email ){
+        try{
+            emailService.enviarEmailSimple(email);
+        }catch (Exception e){
+            System.out.println("Error enviando email... Detalle -> " +e);
+        }
+    }
     public String obtenerRolUsuarioPorCorreo(String correo){
         return utilRepository.obtenerRolUsuarioPorCorreo(correo);
     }
@@ -105,6 +115,7 @@ public class UtilServiceImpl implements UtilService{
         for (int i = 0; i < tickets.size(); i++) {
             tickets.get(i).setCreador(correo);
             if (tickets.get(i).getEstado()==0){tickets.get(i).setEstadoLetras("Abierto");}
+            else if(tickets.get(i).getEstado()==2){tickets.get(i).setEstadoLetras("Asignado");}
             else{tickets.get(i).setEstadoLetras("Cerrado");}
         }
         return tickets;
@@ -113,6 +124,7 @@ public class UtilServiceImpl implements UtilService{
         List<Ticket> tickets = utilRepository.obtenerTodosLosTiketsConEstadoDisponible();
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getEstado()==0){tickets.get(i).setEstadoLetras("Abierto");}
+            else if(tickets.get(i).getEstado()==2){tickets.get(i).setEstadoLetras("Asignado");}
             else{tickets.get(i).setEstadoLetras("Cerrado");}
         }
         return tickets;
@@ -122,6 +134,7 @@ public class UtilServiceImpl implements UtilService{
         List<Ticket> tickets = utilRepository.obtenerTicketsAsignadosATecnico(id);
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getEstado()==0){tickets.get(i).setEstadoLetras("Abierto");}
+            else if(tickets.get(i).getEstado()==2){tickets.get(i).setEstadoLetras("Asignado");}
             else{tickets.get(i).setEstadoLetras("Cerrado");}
         }
         return tickets;
@@ -130,6 +143,7 @@ public class UtilServiceImpl implements UtilService{
     public Ticket obtenerTicketPorIdTicket(Long idTicket){
         List<Ticket> t = utilRepository.obtenerTicketPorIdTicket(idTicket);
         if (t.get(0).getEstado()==0){t.get(0).setEstadoLetras("Abierto");}
+        else if(t.get(0).getEstado()==2){t.get(0).setEstadoLetras("Asignado");}
         else{t.get(0).setEstadoLetras("Cerrado");}
         return t.get(0);
     }
@@ -138,15 +152,38 @@ public class UtilServiceImpl implements UtilService{
     }
     public Ticket obtenerTicketPorNumTicket(String numTicket){
         List<Ticket> t = utilRepository.obtenerTicketPorNumTicket(numTicket);
-        if (t.get(0).getEstado()==0){t.get(0).setEstadoLetras("Abierto");}
-        else{t.get(0).setEstadoLetras("Cerrado");}
-        return t.get(0);
+        if (t.size()==0 || t.isEmpty()){
+            return null;
+        }else{
+            if (t.get(0).getEstado()==0){t.get(0).setEstadoLetras("Abierto");}
+            else if (t.get(0).getEstado()==2){t.get(0).setEstadoLetras("Asignado");}
+            else{t.get(0).setEstadoLetras("Cerrado");}
+            return t.get(0);
+        }
     }
     public boolean asignarTecnicoATicket(Long idTecnico, Long idTicket){
         return utilRepository.asignarTecnicoATicket(utilRepository.obtenerIdUsuarioPorIdAdministracion(idTecnico),idTicket);
     }
     public boolean marcarTicketComoResuelto(Long idTicket){
-        return utilRepository.marcarTicketComoResuelto(idTicket);
+        if(utilRepository.marcarTicketComoResuelto(idTicket)){
+            List<Ticket> t = utilRepository.obtenerTicketPorIdTicket(idTicket);
+            String correoCliente = utilRepository.obtenerCorreoClientePorIdTicket(t.get(0).getIdTicket());
+            String body = "El ticket#"+t.get(0).getNumTicket()+" con detalles: \n"+
+                    "Prioridad: "+t.get(0).getPrioridad()+"\n"+
+                    "Tipo de soporte: "+t.get(0).getTipoSoporte()+"\n"+
+                    "Descripcion: "+t.get(0).getDescripcion()+"\n"+
+                    "Fue correctamente resuelto";
+            String subject = "Solicitud linea de soporte grupo Da2";
+
+            Email e = new Email(correoCliente,body,subject);
+            enviarEmailPersonalizado(e);
+            return true;
+        }else{ return false;}
     }
 
+    public String obtenerFechaYhoraActual(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        return (dtf.format(now));
+    }
 }

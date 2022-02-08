@@ -72,3 +72,6 @@ opacity: 0.7;
 .descripcion-ticket{
   overflow: hidden;
 }
+.contenedor-ticket>h4{
+  opacity: 0.3;
+}

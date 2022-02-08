@@ -16,6 +16,7 @@ public class Ticket {
     private String descripcion;
     private int estado;
     private String estadoLetras;
+    private String fechayhora;
 
     public Ticket() {
     }
@@ -56,6 +57,17 @@ public class Ticket {
         this.estado = estado;
         this.prioridad = prioridad;
     }
+
+    public Ticket(Long idTicket, String tipoSoporte, String numTicket, String descripcion, int estado, String prioridad, String fechayhora) {
+        this.idTicket = idTicket;
+        this.tipoSoporte = tipoSoporte;
+        this.numTicket = numTicket;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.prioridad = prioridad;
+        this.fechayhora = fechayhora;
+    }
+
     public Ticket(Long idTicket, Long idCliente, String tipoSoporte, Long idPrioridad, String numTicket, String descripcion, int estado, String prioridad, String creador) {
         this.idTicket = idTicket;
         this.idCliente = idCliente;
@@ -175,5 +187,13 @@ public class Ticket {
 
     public void setEstadoLetras(String estadoLetras) {
         this.estadoLetras = estadoLetras;
+    }
+
+    public String getFechayhora() {
+        return fechayhora;
+    }
+
+    public void setFechayhora(String fechayhora) {
+        this.fechayhora = fechayhora;
     }
 }

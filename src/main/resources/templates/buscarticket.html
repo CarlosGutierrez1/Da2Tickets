@@ -29,5 +29,13 @@
     </div>
 </section>
 
+
+
+<div th:if="${param.error}"  class="param-error">
+    <p>No se ha podido encontrar el ticket. Intente de nuevo mas tarde.</p>
+</div>
+<div th:if="${param.success}"  class="param-success">
+    <p>Se ha encontrado. Para continuar inicie sesion.</p>
+</div>
 </body>
 </html>

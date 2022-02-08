@@ -25,5 +25,7 @@ public interface UtilRepository {
     public boolean asignarTecnicoATicket(Long idTecnico, Long idTicket);
     public Long obtenerIdUsuarioPorIdAdministracion(Long idAdministracion);
     public boolean marcarTicketComoResuelto(Long idTicket);
+    public String obtenerCorreoClientePorIdUsuario(Long idUsuario);
+    public String obtenerCorreoClientePorIdTicket(Long idTicket);
 
 }

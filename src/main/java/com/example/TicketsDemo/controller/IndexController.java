@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -78,8 +79,14 @@ public class IndexController {
 
     @PostMapping("/detalleticketbuscado")
     public String detalleTicketBuscado(@RequestParam("numTicket")String numTicket, Model model){
-        model.addAttribute("ticket",utilService.obtenerTicketPorNumTicket(numTicket));
-        return "/detalleticket";
+        Ticket t = utilService.obtenerTicketPorNumTicket(numTicket);
+        if (Objects.isNull(t)){
+            return "redirect:/index/buscarticket?error";
+        }else{
+            model.addAttribute("ticket",t);
+            return "/detalleticket";
+        }
+
     }
     @PostMapping("/asignartecnico")
     public String asignarTecnicoATicket(@RequestParam("idTecnico")Long idTecnico, @RequestParam("idTicket")Long idTicket, Model model){
